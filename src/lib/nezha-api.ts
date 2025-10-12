@@ -2,12 +2,12 @@ import { SharedClient } from "@/hooks/use-rpc2"
 import { LoginUserResponse, MonitorResponse, ServerGroupResponse, ServiceResponse, SettingResponse, NezhaMonitor } from "@/types/nezha-api"
 import { DateTime } from "luxon"
 
-import { uuidToNumber } from "./utils"
+import { getKomariNodes, uuidToNumber } from "./utils"
 
 //let lastestRefreshTokenAt = 0
 
 export const fetchServerGroup = async (): Promise<ServerGroupResponse> => {
-  const kmNodes: Record<string, any> = await SharedClient().call("common:getNodes")
+  const kmNodes: Record<string, any> = await getKomariNodes()
 
   if (kmNodes?.error) {
     throw new Error(kmNodes.error)
@@ -59,7 +59,7 @@ export const fetchLoginUser = async (): Promise<LoginUserResponse> => {
 // TODO
 export const fetchMonitor = async (server_id: number): Promise<MonitorResponse> => {
   // 获取 uuid 和服务器名称
-  const km_nodes: Record<string, any> = await SharedClient().call("common:getNodes")
+  const km_nodes: Record<string, any> = await getKomariNodes()
   if (km_nodes?.error) {
     throw new Error(km_nodes.error)
   }

@@ -1,5 +1,5 @@
 import { SharedClient } from "@/hooks/use-rpc2"
-import { komariToNezhaWebsocketResponse } from "@/lib/utils"
+import { getKomariNodes, komariToNezhaWebsocketResponse } from "@/lib/utils"
 import React, { useEffect, useState } from "react"
 
 import { WebSocketContext, WebSocketContextType } from "./websocket-context"
@@ -23,7 +23,7 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ url, child
   const getData = () => {
     const rpc2 = SharedClient()
     return rpc2.call("common:getNodesLatestStatus").then((res) => {
-      console.log(res)
+      //console.log(res)
       const nzwsres = komariToNezhaWebsocketResponse(res)
       setLastMessage({ data: JSON.stringify(nzwsres) })
       setMessageHistory((prev) => {
@@ -34,11 +34,13 @@ export const WebSocketProvider: React.FC<WebSocketProviderProps> = ({ url, child
   }
 
   useEffect(() => {
-    getData()
+    getKomariNodes() // 尝试缓存
+    getData().then(() => {
+      setConnected(true)
+    })
 
     setInterval(() => {
       getData()
-      setConnected(true)
     }, 2000)
   }, [])
 

@@ -142,7 +142,7 @@
               return false
             }
             const text = (p.textContent || "").trim()
-            console.info(TAG, "找到 <p> 文本：", text)
+            //console.info(TAG, "找到 <p> 文本：", text)
             if (/gpu/i.test(text)) {
               console.info(TAG, '匹配到 "GPU"，将删除容器：', container)
               container.remove()
@@ -150,7 +150,7 @@
             }
             return false
           } catch (err) {
-            console.error(TAG, "处理容器时出错：", err)
+            //console.error(TAG, "处理容器时出错：", err)
             return false
           }
         }

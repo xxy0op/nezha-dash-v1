@@ -393,7 +393,6 @@ function buildPublicNoteFromNode(server: any, existingPublicNote?: string): stri
   try {
     // 如果已有结构化的 public_note，先解析出来以便合并
     let existing = parsePublicNote(existingPublicNote || "") || undefined
-
     const bc: number = Number(server?.billing_cycle || 0)
     const autoRenewal: string = server?.auto_renewal === true || server?.auto_renewal === 1 || server?.auto_renewal === "1" ? "1" : "0"
     const cycle: string = deriveCycleLabel(bc) || String(bc || "")
@@ -422,12 +421,12 @@ function buildPublicNoteFromNode(server: any, existingPublicNote?: string): stri
       server?.traffic_limit != null && server?.traffic_limit !== "" && !Number.isNaN(trafficLimitNum) && trafficLimitNum > 0
     const trafficVol: string = hasTraffic ? formatBytes(trafficLimitNum) : ""
     const trafficTypeFromNode: string = hasTraffic ? server?.traffic_limit_type || "" : ""
-    const extraFromNode: string =
+    const extraFromNode: string = existing ? "" : (
       server?.public_remark != null && server.public_remark !== ""
         ? String(server.public_remark)
         : server?.tags
           ? sanitizeTags(String(server.tags))
-          : ""
+          : "")
 
     const merged = {
       billingDataMod: endDate ? {
@@ -459,8 +458,7 @@ function buildPublicNoteFromNode(server: any, existingPublicNote?: string): stri
 
 export const komariToNezhaWebsocketResponse = (data: any): NezhaWebsocketResponse => {
   if (km_servers_cache.length === 0) {
-    SharedClient()
-      .call("common:getNodes")
+    getKomariNodes()
       .then((res) => {
         km_servers_cache = Object.values(res || {})
       })
@@ -593,7 +591,7 @@ export const komariToNezhaWebsocketResponse = (data: any): NezhaWebsocketRespons
     return {
       id: uuidToNumber(uuid),
       name: server.name,
-      public_note: buildPublicNoteFromNode(server, server.public_note || ""),
+      public_note: buildPublicNoteFromNode(server, server.public_remark || ""),
       last_active: status ? status.time : "0000-00-00T00:00:00Z",
       country_code: countryFlagToCode(server.region),
       display_index: -server.weight || 0,
@@ -653,4 +651,16 @@ export const komariToNezhaWebsocketResponse = (data: any): NezhaWebsocketRespons
     now: Date.now(),
     servers,
   }
+}
+
+let __nodesCache__ : any = null
+export const getKomariNodes = async () => {
+  if (__nodesCache__) {
+    return __nodesCache__
+  }
+  __nodesCache__ = await SharedClient().call("common:getNodes")
+  setTimeout(() => {
+    __nodesCache__ = null
+  }, 2 * 60 * 1000) // 2 minutes cache
+  return __nodesCache__
 }
