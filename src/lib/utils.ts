@@ -654,13 +654,38 @@ export const komariToNezhaWebsocketResponse = (data: any): NezhaWebsocketRespons
 }
 
 let __nodesCache__ : any = null
+let __nodesCachePromise__: Promise<any> | null = null
 export const getKomariNodes = async () => {
+  // 命中缓存，直接返回
   if (__nodesCache__) {
     return __nodesCache__
   }
-  __nodesCache__ = await SharedClient().call("common:getNodes")
-  setTimeout(() => {
-    __nodesCache__ = null
-  }, 2 * 60 * 1000) // 2 minutes cache
-  return __nodesCache__
+
+  // 若已有进行中的请求，复用同一个 Promise，避免并发重复请求
+  if (__nodesCachePromise__) {
+    return __nodesCachePromise__
+  }
+
+  // 建立并发锁（in-flight Promise）
+  __nodesCachePromise__ = SharedClient()
+    .call("common:getNodes")
+    .then((res) => {
+      __nodesCache__ = res
+      // 设置 TTL 到期清理
+      setTimeout(() => {
+        __nodesCache__ = null
+      }, 2 * 60 * 1000) // 2 minutes cache
+      return __nodesCache__
+    })
+    .catch((err) => {
+      // 失败不污染缓存，下次可重试
+      __nodesCache__ = null
+      throw err
+    })
+    .finally(() => {
+      // 请求结束，释放并发锁
+      __nodesCachePromise__ = null
+    })
+
+  return __nodesCachePromise__
 }
