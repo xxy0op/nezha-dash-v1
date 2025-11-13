@@ -5,7 +5,6 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
 
 import { DashCommand } from "./components/DashCommand"
 import ErrorBoundary from "./components/ErrorBoundary"
-import Footer from "./components/Footer"
 import Header, { RefreshToast } from "./components/Header"
 import { useBackground } from "./hooks/use-background"
 import { useTheme } from "./hooks/use-theme"
@@ -102,7 +101,6 @@ const MainApp: React.FC = () => {
             <Route path="/error" element={<ErrorPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          <Footer />
         </main>
       </div>
     </ErrorBoundary>

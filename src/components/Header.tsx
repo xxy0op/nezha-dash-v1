@@ -41,7 +41,6 @@ function Header() {
   const customLogo = window.CustomLogo || "/favicon.ico"
 
   // @ts-expect-error CustomDesc is a global variable
-  const customDesc = window.CustomDesc || "Komari Monitor"
 
   const customMobileBackgroundImage = window.CustomMobileBackgroundImage !== "" ? window.CustomMobileBackgroundImage : undefined
 
@@ -97,7 +96,6 @@ function Header() {
           </div>
           {isLoading ? <Skeleton className="h-6 w-20 rounded-[5px] bg-muted-foreground/10 animate-none" /> : siteName || "NEZHA"}
           <Separator orientation="vertical" className="mx-2 hidden h-4 w-[1px] md:block" />
-          <p className="hidden text-sm font-medium opacity-40 md:block">{customDesc}</p>
         </section>
         <section className="flex items-center gap-2 header-handles">
           <div className="hidden sm:flex items-center gap-2">

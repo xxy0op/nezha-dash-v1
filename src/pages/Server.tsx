@@ -32,7 +32,7 @@ export default function Servers() {
   const { status } = useStatus()
   const [showServices, setShowServices] = useState<string>("0")
   const [showMap, setShowMap] = useState<string>("0")
-  const [inline, setInline] = useState<string>("0")
+  const [inline, setInline] = useState<string>("1")
   const containerRef = useRef<HTMLDivElement>(null)
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false)
   const [currentGroup, setCurrentGroup] = useState<string>("All")
