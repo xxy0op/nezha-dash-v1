@@ -34,15 +34,22 @@ export default function ServerCardInline({ now, serverInfo }: { now: number; ser
   return online ? (
     <section>
       <Card
-        className={cn(
-          "flex items-center lg:flex-row justify-start gap-3 p-3 md:px-5 cursor-pointer hover:bg-accent/50 transition-colors min-w-[900px] w-full",
-          {
-            "bg-card/70": customBackgroundImage,
-          },
-        )}
+className={cn(
+  "flex items-center justify-start gap-3 p-3 md:px-5 cursor-pointer hover:bg-accent/50 transition-colors w-full",
+  {
+    // 桌面端使用inline布局（900px最小宽度）
+    "min-w-[900px] lg:flex-row": true,
+    // 移动端使用列布局，自动适应屏幕
+    "flex-col lg:min-w-[900px]": true,
+    "bg-card/70": customBackgroundImage,
+  },
+)}
         onClick={cardClick}
       >
-        <section className={cn("grid items-center gap-2 lg:w-36")} style={{ gridTemplateColumns: "auto auto 1fr" }}>
+        <section className={cn("grid items-center gap-2 lg:w-36", {
+  // 移动端使用100%宽度，桌面端使用固定宽度
+  "w-full lg:w-36": true,
+})} style={{ gridTemplateColumns: "auto auto 1fr" }}>
           <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
           <div className={cn("flex items-center justify-center", showFlag ? "min-w-[17px]" : "min-w-0")}>
             {showFlag ? <ServerFlag country_code={country_code} /> : null}
@@ -118,12 +125,16 @@ export default function ServerCardInline({ now, serverInfo }: { now: number; ser
     </section>
   ) : (
     <Card
-      className={cn(
-        "flex  min-h-[61px] min-w-[900px] items-center justify-start p-3 md:px-5 flex-row cursor-pointer hover:bg-accent/50 transition-colors",
-        {
-          "bg-card/70": customBackgroundImage,
-        },
-      )}
+className={cn(
+  "flex items-center justify-start p-3 md:px-5 cursor-pointer hover:bg-accent/50 transition-colors min-h-[61px] w-full",
+  {
+    // 桌面端使用inline布局（900px最小宽度）
+    "min-w-[900px] lg:flex-row lg:min-w-[900px]": true,
+    // 移动端使用列布局，自动适应屏幕  
+    "flex-col lg:min-w-[900px]": true,
+    "bg-card/70": customBackgroundImage,
+  },
+)}
       onClick={cardClick}
     >
       <section className={cn("grid items-center gap-2 w-40")} style={{ gridTemplateColumns: "auto auto 1fr" }}>

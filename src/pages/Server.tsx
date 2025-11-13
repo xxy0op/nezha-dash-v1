@@ -366,20 +366,21 @@ export default function Servers() {
       </div>
       {showMap === "1" && <GlobalMap now={nezhaWsData.now} serverList={nezhaWsData?.servers || []} />}
       {showServices === "1" && <ServiceTracker serverList={filteredServers} />}
-      {inline === "1" && (
-        <section ref={containerRef} className="flex flex-col gap-2 overflow-x-scroll scrollbar-hidden mt-6 server-inline-list">
-          {filteredServers.map((serverInfo) => (
-            <ServerCardInline now={nezhaWsData.now} key={serverInfo.id} serverInfo={serverInfo} />
-          ))}
-        </section>
+{inline === "1" && (
+  <section ref={containerRef} className="flex flex-col gap-2 mt-6 server-inline-list overflow-x-auto lg:overflow-x-scroll lg:scrollbar-hidden hidden lg:flex">
+    {filteredServers.map((serverInfo) => (
+      <ServerCardInline now={nezhaWsData.now} key={serverInfo.id} serverInfo={serverInfo} />
+    ))}
+  </section>
+)}
       )}
-      {inline === "0" && (
-        <section ref={containerRef} className="grid grid-cols-1 gap-2 md:grid-cols-2 mt-6 server-card-list">
-          {filteredServers.map((serverInfo) => (
-            <ServerCard now={nezhaWsData.now} key={serverInfo.id} serverInfo={serverInfo} />
-          ))}
-        </section>
-      )}
+{(inline === "0" || inline === "1") && (
+  <section ref={containerRef} className="grid grid-cols-1 gap-2 md:grid-cols-2 mt-6 server-card-list flex lg:hidden">
+    {filteredServers.map((serverInfo) => (
+      <ServerCard now={nezhaWsData.now} key={serverInfo.id} serverInfo={serverInfo} />
+    ))}
+  </section>
+)}
     </div>
   )
 }
