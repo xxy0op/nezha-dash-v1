@@ -40,8 +40,6 @@ function Header() {
   // @ts-expect-error CustomLogo is a global variable
   const customLogo = window.CustomLogo || "/favicon.ico"
 
-  // @ts-expect-error CustomDesc is a global variable
-
   const customMobileBackgroundImage = window.CustomMobileBackgroundImage !== "" ? window.CustomMobileBackgroundImage : undefined
 
   useEffect(() => {
