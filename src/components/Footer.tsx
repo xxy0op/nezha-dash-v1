@@ -43,7 +43,6 @@ const Footer: React.FC = () => {
     </section>
   </section>
 )
-
 }
 
 export default Footer

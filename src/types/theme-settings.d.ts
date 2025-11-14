@@ -1,9 +1,13 @@
-export interface ThemeConfiguration {
+export interface ThemeSettings {
   site_created_date?: string;
   show_uptime?: boolean;
 }
 
 export interface PublicApiResponse {
-  success: boolean;
-  data?: ThemeConfiguration;
+  status: string;
+  message: string;
+  data: {
+    theme_settings?: ThemeSettings | null;
+    [key: string]: any;
+  };
 }

@@ -6,20 +6,14 @@
     "author": "Akizon77",
     "url": "https://github.com/xxy0op/nezha-dash-v1",
     "preview": "preview.png",
-    "configuration": [
-        {
-            "key": "site_created_date",
-            "type": "string",
-            "title": "网站创建时间",
-            "description": "格式: YYYY-MM-DD HH:mm:ss (例如: 2023-01-01 08:00:00)",
-            "default": "2023-01-01 08:00:00"
-        },
-        {
-            "key": "show_uptime",
-            "type": "switch",
-            "title": "显示网站运行时间",
-            "description": "在页脚显示网站运行时间",
-            "default": true
-        }
-    ]
+    "configuration": {
+        "type": "managed",
+        "icon": "/themes/NezhaV1/dist/assets/icon.svg",
+        "name": "网站配置",
+        "data": [
+            { "name": "网站运行时间设置", "type": "title" },
+            { "key": "site_created_date", "name": "网站创建时间", "type": "string", "default": "2023-01-01 08:00:00", "help": "格式: YYYY-MM-DD HH:mm:ss (例如: 2023-01-01 08:00:00)" },
+            { "key": "show_uptime", "name": "显示网站运行时间", "type": "switch", "default": true, "help": "在页脚显示网站运行时间" }
+        ]
+    }
 }

@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react';
 
-interface ThemeConfiguration {
+interface ThemeSettings {
   site_created_date?: string;
   show_uptime?: boolean;
 }
 
 interface PublicApiResponse {
-  success: boolean;
-  data?: ThemeConfiguration;
+  status: string;
+  message: string;
+  data: {
+    theme_settings?: ThemeSettings | null;
+    [key: string]: any;
+  };
 }
 
 export const useThemeSettings = () => {
-  const [themeSettings, setThemeSettings] = useState<ThemeConfiguration | null>(null);
+  const [themeSettings, setThemeSettings] = useState<ThemeSettings | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -22,8 +26,8 @@ export const useThemeSettings = () => {
         const response = await fetch('/api/public');
         const data: PublicApiResponse = await response.json();
 
-        if (data.success && data.data) {
-          setThemeSettings(data.data);
+        if (data.status === 'success' && data.data?.theme_settings) {
+          setThemeSettings(data.data.theme_settings);
         } else {
           setThemeSettings(null);
         }

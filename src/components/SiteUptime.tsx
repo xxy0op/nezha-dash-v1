@@ -27,10 +27,7 @@ const SiteUptime: React.FC = () => {
         }
 
         const diffMs = now.getTime() - createdDate.getTime();
-        const diffSeconds = Math.floor(diffMs / 1000);
-        const diffMinutes = Math.floor(diffSeconds / 60);
-        const diffHours = Math.floor(diffMinutes / 60);
-        const diffDays = Math.floor(diffHours / 24);
+        const diffDays = Math.floor(diffMs / (24 * 60 * 60 * 1000));
 
         // 计算准确的年月日时分
         const years = Math.floor(diffDays / 365);
