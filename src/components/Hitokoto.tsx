@@ -14,7 +14,7 @@ interface TranslationData {
 }
 
 export function Hitokoto() {
-  const { i18n, t } = useTranslation()
+  const { i18n } = useTranslation()
   const [data, setData] = useState<HitokotoData | null>(null)
   const [translatedData, setTranslatedData] = useState<TranslationData | null>(null)
   const [loading, setLoading] = useState(true)
