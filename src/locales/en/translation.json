@@ -128,5 +128,10 @@
   "ToggleLightMode": "Toggle Light Mode",
   "ToggleDarkMode": "Toggle Dark Mode",
   "ToggleSystemMode": "Toggle System Mode",
-  "Home": "Home"
+  "Home": "Home",
+  "hitokoto": {
+    "title": "Daily Quote",
+    "loading": "Loading quote...",
+    "error": "Failed to load quote"
+  }
 }
