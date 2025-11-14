@@ -6,4 +6,20 @@
     "author": "Akizon77",
     "url": "https://github.com/xxy0op/nezha-dash-v1",
     "preview": "preview.png"
+	"configuration": [
+        {
+            "key": "site_created_date",
+            "type": "string",
+            "title": "网站创建时间",
+            "description": "格式: YYYY-MM-DD HH:mm:ss (例如: 2023-01-01 08:00:00)",
+            "default": "2023-01-01 08:00:00"
+        },
+        {
+            "key": "show_uptime",
+            "type": "switch",
+            "title": "显示网站运行时间", 
+            "description": "在页脚显示网站运行时间",
+            "default": true
+        }
+    ]
 }
