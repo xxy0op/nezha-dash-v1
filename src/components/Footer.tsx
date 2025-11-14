@@ -2,7 +2,6 @@
 // import { useQuery } from "@tanstack/react-query"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { useThemeSettings } from '../hooks/useThemeSettings'
 import SiteUptime from './SiteUptime'
 
 const Footer: React.FC = () => {
