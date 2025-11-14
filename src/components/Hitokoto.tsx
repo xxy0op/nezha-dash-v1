@@ -13,7 +13,7 @@ export function Hitokoto() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    fetch('https://v1.hitokoto.cn/?c=k&c=d&c=i&encode=json')
+    fetch('https://v1.hitokoto.cn/?c=k&c=i&encode=json')
       .then(response => response.json())
       .then((data: HitokotoData) => {
         setData(data)
