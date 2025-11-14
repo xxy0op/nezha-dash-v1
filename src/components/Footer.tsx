@@ -7,7 +7,6 @@ import SiteUptime from './SiteUptime'
 
 const Footer: React.FC = () => {
   const { t } = useTranslation()
-  const { themeSettings } = useThemeSettings()
   const isMac = /macintosh|mac os x/i.test(navigator.userAgent)
 
   // const { data: settingData } = useQuery({
