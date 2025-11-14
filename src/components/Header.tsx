@@ -302,24 +302,7 @@ function Overview() {
           </div>
         </NumberFlowGroup>
       </div>
-	  function Overview() {
-  // ... 现有代码保持不变
-  
-  return (
-    <section className={"mt-10 flex flex-col md:mt-16 header-timer"}>
-      <p className="text-base font-semibold">👋 {t("overview")}</p>
-      <div className="flex items-center gap-1.5">
-        <p className="text-sm font-medium opacity-50">{t("whereTheTimeIs")}</p>
-        <NumberFlowGroup>
-          {/* 时间显示代码 */}
-        </NumberFlowGroup>
-      </div>
-      
-      {/* 👇 在这里添加一言组件 */}
-      <Hitokoto />
-	      </section>
-  )
-}
+	  <Hitokoto />
     </section>
   )
 }
