@@ -2,7 +2,6 @@
 // import { useQuery } from "@tanstack/react-query"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import SiteUptime from './SiteUptime'
 
 const Footer: React.FC = () => {
   const { t } = useTranslation()
@@ -16,33 +15,29 @@ const Footer: React.FC = () => {
   // })
 
   return (
-    
-  <section className="flex flex-col">
-    {/* 网站运行时间 - 在页脚中间位置 */}
-    <div className="flex justify-center my-2">
-      <SiteUptime />
-    </div>
-    
-    <section className="mt-1 flex items-center sm:flex-row flex-col justify-between gap-2 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50 server-footer-name">
-      <div className="flex items-center gap-1">
-        <p>Powered by <a href={"https://github.com/komari-monitor/komari"} target="_blank">Komari Monitor</a></p>
-      </div>
-      <div className="server-footer-theme flex flex-col items-center sm:items-end">
-        <p className="mt-1 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50">
-          <kbd className="pointer-events-none mx-1 inline-flex h-4 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
-            {isMac ? <span className="text-xs">⌘</span> : "Ctrl "}K
-          </kbd>
-        </p>
-        <section>
-          {t("footer.themeBy")}
-          <a href={"https://github.com/Akizon77/nezha-dash-v1"} target="_blank">
-            nezha-dash
-          </a>
+    <footer className="mx-auto w-full max-w-5xl px-4 lg:px-0 pb-4 server-footer">
+      <section className="flex flex-col">
+        <section className="mt-1 flex items-center sm:flex-row flex-col justify-between gap-2 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50 server-footer-name">
+          <div className="flex items-center gap-1">
+            <p>Powered by <a href={"https://github.com/komari-monitor/komari"} target="_blank">Komari Monitor</a></p>
+          </div>
+          <div className="server-footer-theme flex flex-col items-center sm:items-end">
+            <p className="mt-1 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50">
+              <kbd className="pointer-events-none mx-1 inline-flex h-4 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+                {isMac ? <span className="text-xs">⌘</span> : "Ctrl "}K
+              </kbd>
+            </p>
+            <section>
+              {t("footer.themeBy")}
+              <a href={"https://github.com/Akizon77/nezha-dash-v1"} target="_blank">
+                nezha-dash
+              </a>
+            </section>
+          </div>
         </section>
-      </div>
-    </section>
-  </section>
-)
+      </section>
+    </footer>
+  )
 }
 
 export default Footer

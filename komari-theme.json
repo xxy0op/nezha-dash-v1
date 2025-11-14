@@ -2,18 +2,8 @@
     "name": "Nezha Dash V1",
     "short": "NezhaV1",
     "description": "Nezha Dash V1 Theme for Komari Monitor",
-    "version": "1.1.0",
+    "version": "1.0.0",
     "author": "Akizon77",
     "url": "https://github.com/xxy0op/nezha-dash-v1",
-    "preview": "preview.png",
-    "configuration": {
-        "type": "managed",
-        "icon": "/themes/NezhaV1/dist/assets/icon.svg",
-        "name": "网站配置",
-        "data": [
-            { "name": "网站运行时间设置", "type": "title" },
-            { "key": "site_created_date", "name": "网站创建时间", "type": "string", "default": "2023-01-01 08:00:00", "help": "格式: YYYY-MM-DD HH:mm:ss (例如: 2023-01-01 08:00:00)" },
-            { "key": "show_uptime", "name": "显示网站运行时间", "type": "switch", "default": true, "help": "在页脚显示网站运行时间" }
-        ]
-    }
+    "preview": "preview.png"
 }
