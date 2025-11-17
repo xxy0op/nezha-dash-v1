@@ -149,12 +149,37 @@ export const fetchMonitor = async (server_id: number): Promise<MonitorResponse> 
 }
 // TODO
 export const fetchService = async (): Promise<ServiceResponse> => {
-  const response = await SharedClient().call("NoSuchMethod")
+  const response = await SharedClient().call("common:getNodesLatestStatus")
   const data = await response.json()
   if (data.error) {
     throw new Error(data.error)
   }
-  return data
+  
+  // 转换Komari数据格式为Nezha兼容格式
+  const serviceData: ServiceResponse = {
+    service: []
+  }
+  
+  // 遍历每个节点的ping数据
+  if (data.result) {
+    Object.values(data.result).forEach((node: any) => {
+      if (node.ping) {
+        Object.values(node.ping).forEach((ping: any) => {
+          serviceData.service.push({
+            name: ping.name,
+            delay: ping.latest,
+            loss: ping.loss,
+            avg: ping.avg,
+            min: ping.min,
+            max: ping.max,
+            status: ping.loss === 0 ? "up" : "down"
+          })
+        })
+      }
+    })
+  }
+  
+  return serviceData
 }
 
 export const fetchSetting = async (): Promise<SettingResponse> => {
