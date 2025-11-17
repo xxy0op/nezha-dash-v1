@@ -147,33 +147,44 @@ export const fetchMonitor = async (server_id: number): Promise<MonitorResponse> 
 
   return { success: true, data }
 }
-// TODO
+// 修正后的 fetchService 函数
 export const fetchService = async (): Promise<ServiceResponse> => {
   const response = await SharedClient().call("common:getNodesLatestStatus")
   const data = await response.json()
+  
   if (data.error) {
     throw new Error(data.error)
   }
-  
+
   // 转换Komari数据格式为Nezha兼容格式
   const serviceData: ServiceResponse = {
-    service: []
+    success: true,
+    data: {
+      services: {},
+      cycle_transfer_stats: {}
+    }
   }
   
   // 遍历每个节点的ping数据
   if (data.result) {
     Object.values(data.result).forEach((node: any) => {
       if (node.ping) {
-        Object.values(node.ping).forEach((ping: any) => {
-          serviceData.service.push({
-            name: ping.name,
-            delay: ping.latest,
-            loss: ping.loss,
-            avg: ping.avg,
-            min: ping.min,
-            max: ping.max,
-            status: ping.loss === 0 ? "up" : "down"
-          })
+        Object.entries(node.ping).forEach(([pingId, ping]: [string, any]) => {
+          const serviceKey = `ping-${pingId}`
+          serviceData.data.services[serviceKey] = {
+            service_name: ping.name,
+            current_up: 0,
+            current_down: 0,
+            total_up: 0,
+            total_down: 0,
+            delay: [
+              ping.latest,          // 当前延迟
+              ping.avg,             // 平均延迟
+              ping.avg              // 备用：再次使用平均延迟
+            ],
+            up: [0],                // 无上传数据
+            down: [0]               // 无下载数据
+          }
         })
       }
     })
