@@ -43,14 +43,6 @@
     "total": "总计",
     "nextUpdate": "下次更新"
   },
-  "serviceTracker": {
-    "noService": "无服务数据",
-    "uptime": "在线率",
-    "delay": "延迟",
-    "daysAgo": "天前",
-    "today": "今天",
-    "loading": "加载中..."
-  },
   "serverDetail": {
     "status": "状态",
     "online": "在线",

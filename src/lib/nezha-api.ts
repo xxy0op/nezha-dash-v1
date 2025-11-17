@@ -148,15 +148,6 @@ export const fetchMonitor = async (server_id: number): Promise<MonitorResponse> 
   return { success: true, data }
 }
 
-export const fetchService = async (): Promise<ServiceResponse> => {
-  const response = await SharedClient().call("NoSuchMethod")  // ← 这里！
-  const data = await response.json()
-  if (data.error) {
-    throw new Error(data.error)
-  }
-  return data
-}
-
 export const fetchSetting = async (): Promise<SettingResponse> => {
   const km_public = await SharedClient().call("common:getPublicInfo")
   if (km_public.error) {
