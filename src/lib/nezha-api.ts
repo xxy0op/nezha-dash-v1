@@ -1,5 +1,5 @@
 import { SharedClient } from "@/hooks/use-rpc2"
-import { LoginUserResponse, MonitorResponse, ServerGroupResponse, ServiceResponse, SettingResponse, NezhaMonitor } from "@/types/nezha-api"
+import { LoginUserResponse, MonitorResponse, ServerGroupResponse, SettingResponse, NezhaMonitor } from "@/types/nezha-api"
 import { DateTime } from "luxon"
 
 import { getKomariNodes, uuidToNumber } from "./utils"
