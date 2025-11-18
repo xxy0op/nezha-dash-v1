@@ -12,7 +12,12 @@ import BillingInfo from "./billingInfo"
 import { Badge } from "./ui/badge"
 import { Card } from "./ui/card"
 
-export default function ServerCard({ now, serverInfo }: { now: number; serverInfo: NezhaServer }) {
+export default function ServerCard({ now, serverInfo, onToggleExpand, isExpanded }: { 
+  now: number; 
+  serverInfo: NezhaServer;
+  onToggleExpand?: () => void;
+  isExpanded?: boolean;
+}) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { name, country_code, online, cpu, up, down, mem, stg, net_in_transfer, net_out_transfer, public_note, platform } = formatNezhaInfo(
@@ -21,8 +26,8 @@ export default function ServerCard({ now, serverInfo }: { now: number; serverInf
   )
 
   const cardClick = () => {
-    sessionStorage.setItem("fromMainPage", "true")
-    navigate(`/server/${serverInfo.id}`)
+    //sessionStorage.setItem("fromMainPage", "true")
+    //navigate(`/server/${serverInfo.id}`)
   }
 
   const showFlag = true
@@ -49,6 +54,10 @@ export default function ServerCard({ now, serverInfo }: { now: number; serverInf
           "bg-card/70": customBackgroundImage,
         },
       )}
+	  // 第52行onClick之前添加：
+<div
+  className={cn(
+    "flex flex-col items-center justify-start gap-3 p-3 md:px-5 cursor-pointer hover:bg-accent/50 transition-colors",
       onClick={cardClick}
     >
       <section
@@ -58,6 +67,46 @@ export default function ServerCard({ now, serverInfo }: { now: number; serverInf
         style={{ gridTemplateColumns: "auto auto 1fr" }}
       >
         <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
+		<div className="flex items-center justify-between w-full">
+  <div className="flex items-center gap-2">
+    <span className="h-2 w-2 shrink-0 rounded-full bg-green-500 self-center"></span>
+    <div className={cn("flex items-center justify-center", showFlag ? "min-w-[17px]" : "min-w-0")}>
+      {showFlag ? <ServerFlag country_code={country_code} /> : null}
+    </div>
+    <div className="relative flex flex-col">
+      <p className={cn("break-normal font-bold tracking-tight", showFlag ? "text-xs " : "text-sm")}>{name}</p>
+      <div
+        className={cn("hidden lg:block", {
+          "lg:hidden": fixedTopServerName,
+        })}
+      >
+        {parsedData?.billingDataMod && <BillingInfo parsedData={parsedData} />}
+      </div>
+    </div>
+  </div>
+  {/* 展开/折叠按钮 */}
+  {onToggleExpand && (
+    
+ {
+        e.stopPropagation()
+        onToggleExpand()
+      }}
+      className="p-1 hover:bg-accent rounded transition-colors"
+    >
+      <svg 
+        className={cn("h-4 w-4 transition-transform", {
+          "rotate-180": isExpanded
+        })} 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+      </svg>
+    
+
+  )}
+</div>
         <div className={cn("flex items-center justify-center", showFlag ? "min-w-[17px]" : "min-w-0")}>
           {showFlag ? <ServerFlag country_code={country_code} /> : null}
         </div>
