@@ -16,8 +16,6 @@ import { cn, formatNezhaInfo } from "@/lib/utils"
 import { NezhaWebsocketResponse } from "@/types/nezha-api"
 import { ServerGroup } from "@/types/nezha-api"
 import { ArrowDownIcon, ArrowUpIcon, ArrowsUpDownIcon, MapIcon, ViewColumnsIcon } from "@heroicons/react/20/solid"
-import ServerDetailOverview from "@/components/ServerDetailOverview"
-import ServerDetailChart from "@/components/ServerDetailChart"
 import { useQuery } from "@tanstack/react-query"
 import { useEffect, useRef, useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -37,19 +35,6 @@ export default function Servers() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false)
   const [currentGroup, setCurrentGroup] = useState<string>("All")
-  const [expandedServers, setExpandedServers] = useState<Set<number>>(new Set())
-
-  const toggleServerExpansion = (serverId: number) => {
-  setExpandedServers(prev => {
-    const newSet = new Set(prev)
-    if (newSet.has(serverId)) {
-      newSet.delete(serverId)
-    } else {
-      newSet.add(serverId)
-    }
-    return newSet
-  })
-}
 
   const customBackgroundImage = (window.CustomBackgroundImage as string) !== "" ? window.CustomBackgroundImage : undefined
 
@@ -351,51 +336,18 @@ export default function Servers() {
       {showMap === "1" && <GlobalMap now={nezhaWsData.now} serverList={nezhaWsData?.servers || []} />}
       
       {inline === "1" && (
-  <section ref={containerRef} className="flex flex-col gap-2 mt-6 server-inline-list overflow-x-auto lg:overflow-x-scroll lg:scrollbar-hidden hidden lg:flex">
-    {filteredServers.map((serverInfo) => (
-      <div key={serverInfo.id} className="server-expandable-item">
-        <ServerCardInline 
-          now={nezhaWsData.now} 
-          key={serverInfo.id} 
-          serverInfo={serverInfo}
-          onToggleExpand={() => toggleServerExpansion(serverInfo.id)}
-          isExpanded={expandedServers.has(serverInfo.id)}
-        />
-        {expandedServers.has(serverInfo.id) && (
-          <div className="server-detail-expanded overflow-hidden transition-all duration-300 ease-in-out border-t border-border bg-card/50 dark:bg-stone-800/50 mt-2 rounded-lg">
-            <div className="p-4 space-y-4">
-              <ServerDetailOverview server_id={serverInfo.id.toString()} />
-              <ServerDetailChart server_id={serverInfo.id.toString()} />
-            </div>
-          </div>
-        )}
-      </div>
-    ))}
-  </section>
-)}
-
-{(inline === "0" || inline === "1") && (
-  <section ref={containerRef} className="grid grid-cols-1 gap-2 md:grid-cols-2 mt-6 server-card-list flex lg:hidden">
-    {filteredServers.map((serverInfo) => (
-      <div key={serverInfo.id} className="server-expandable-item">
-        <ServerCard 
-          now={nezhaWsData.now} 
-          key={serverInfo.id} 
-          serverInfo={serverInfo}
-          onToggleExpand={() => toggleServerExpansion(serverInfo.id)}
-          isExpanded={expandedServers.has(serverInfo.id)}
-        />
-        {expandedServers.has(serverInfo.id) && (
-          <div className="server-detail-expanded overflow-hidden transition-all duration-300 ease-in-out border-t border-border bg-card/50 dark:bg-stone-800/50 mt-2 rounded-lg">
-            <div className="p-4 space-y-4">
-              <ServerDetailOverview server_id={serverInfo.id.toString()} />
-              <ServerDetailChart server_id={serverInfo.id.toString()} />
-            </div>
-          </div>
-        )}
-      </div>
-    ))}
-  </section>
+        <section ref={containerRef} className="flex flex-col gap-2 mt-6 server-inline-list overflow-x-auto lg:overflow-x-scroll lg:scrollbar-hidden hidden lg:flex">
+          {filteredServers.map((serverInfo) => (
+            <ServerCardInline now={nezhaWsData.now} key={serverInfo.id} serverInfo={serverInfo} />
+          ))}
+        </section>
+      )}
+      {(inline === "0" || inline === "1") && (
+        <section ref={containerRef} className="grid grid-cols-1 gap-2 md:grid-cols-2 mt-6 server-card-list flex lg:hidden">
+          {filteredServers.map((serverInfo) => (
+            <ServerCard now={nezhaWsData.now} key={serverInfo.id} serverInfo={serverInfo} />
+          ))}
+        </section>
       )}
     </div>
   )
