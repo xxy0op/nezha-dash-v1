@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
   {/* 版权信息 */}
   <div className="flex flex-col gap-1">
     <p>© 2025 - 2025 Komari Monitor Dashboard</p>
-    <p>Powered by <a href={"https://github.com/komari-monitor/komari"} target="_blank" className="hover:underline">Komari</a> </p>
+	<p>Powered by <a href={"https://github.com/komari-monitor/komari"} target="_blank" className="hover:underline">Komari</a></p>
     {/* 自定义内容区域 */}
     <div className="mt-2 pt-2 border-t border-neutral-600/20 dark:border-neutral-300/20">
       <p className="text-xs text-neutral-500/80 dark:text-neutral-400/80">
