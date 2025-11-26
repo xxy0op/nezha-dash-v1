@@ -30,6 +30,11 @@ const Footer: React.FC = () => {
       </p>
     </div>
   </div>
+          </section>   
+      </section>      
+    </footer>        
+  )                 
+}                     
   
   <div className="server-footer-theme flex flex-col items-center sm:items-end">
     <p className="mt-1 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50">
