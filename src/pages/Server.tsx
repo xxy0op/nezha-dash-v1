@@ -31,7 +31,7 @@ export default function Servers() {
   const { status } = useStatus()
 
   const [showMap, setShowMap] = useState<string>("0")
-  const [inline, setInline] = useState<string>("1")
+  const [inline, setInline] = useState<string>("0")
   const containerRef = useRef<HTMLDivElement>(null)
   const [settingsOpen, setSettingsOpen] = useState<boolean>(false)
   const [currentGroup, setCurrentGroup] = useState<string>("All")
@@ -343,7 +343,7 @@ export default function Servers() {
         </section>
       )}
       {(inline === "0" || inline === "1") && (
-        <section className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 server-card-list">
+        {inline === "0" && (<section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {filteredServers.map((serverInfo) => (
             <ServerCard now={nezhaWsData.now} key={serverInfo.id} serverInfo={serverInfo} />
           ))}
