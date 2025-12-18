@@ -342,8 +342,8 @@ export default function Servers() {
           ))}
         </section>
       )}
-      {(inline === "0" || inline === "1") && (
-        {inline === "0" && (<section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+		{inline === "0" && (
+		<section className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {filteredServers.map((serverInfo) => (
             <ServerCard now={nezhaWsData.now} key={serverInfo.id} serverInfo={serverInfo} />
           ))}
