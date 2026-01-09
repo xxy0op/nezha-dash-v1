@@ -342,8 +342,8 @@ export default function Servers() {
           ))}
         </section>
       )}
-		{(inline === "0" || inline === "1") && (
-		<section className="grid grid-cols-1 gap-2 md:grid-cols-2 mt-6 server-card-list flex lg:hidden">
+      {(inline === "0" || inline === "1") && (
+        <section ref={containerRef} className="grid grid-cols-1 gap-2 md:grid-cols-2 mt-6 server-card-list flex lg:hidden">
           {filteredServers.map((serverInfo) => (
             <ServerCard now={nezhaWsData.now} key={serverInfo.id} serverInfo={serverInfo} />
           ))}
