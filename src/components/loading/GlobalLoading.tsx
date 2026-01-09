@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next"
 import { cn } from "@/lib/utils"
 
 // 脉冲点动画组件
-const PulseDots = ({ className }: { className?: string }) => {
+const LogoLoader: FC<{ className?: string }> = ({ className }) => {
   return (
     <div className={cn("flex items-center justify-center gap-2", className)}>
       {[0, 1, 2].map((index) => (

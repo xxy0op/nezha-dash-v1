@@ -146,9 +146,15 @@
         }
       }
 
-      #root {
+	  #root {
         background-color: var(--bg) !important;
-        visibility: hidden;
+        /* 默认隐藏，由 JS 控制显示 */
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      #root.loaded {
+        opacity: 1;
       }
 
       #root.loaded {
@@ -212,16 +218,14 @@
         window.addEventListener("load", () => {
           const root = document.getElementById("root")
           if (root) {
-            // 使用 RAF 确保在下一帧渲染
             requestAnimationFrame(() => {
               requestAnimationFrame(() => {
                 root.classList.add("loaded")
-
+                
                 // 隐藏初始加载遮罩
                 const initialLoader = document.getElementById("initial-loader")
                 if (initialLoader) {
                   initialLoader.classList.add("hidden")
-                  // 动画完成后移除元素
                   setTimeout(() => {
                     initialLoader.remove()
                   }, 300)
