@@ -1,5 +1,5 @@
 import { SharedClient } from "@/hooks/use-rpc2"
-import { LoginUserResponse, MonitorResponse, ServerGroupResponse, SettingResponse, NezhaMonitor } from "@/types/nezha-api"
+import { LoginUserResponse, MonitorResponse, ServerGroupResponse, ServiceResponse, SettingResponse, NezhaMonitor } from "@/types/nezha-api"
 import { DateTime } from "luxon"
 
 import { getKomariNodes, uuidToNumber } from "./utils"
@@ -146,6 +146,15 @@ export const fetchMonitor = async (server_id: number): Promise<MonitorResponse> 
   }
 
   return { success: true, data }
+}
+// TODO
+export const fetchService = async (): Promise<ServiceResponse> => {
+  const response = await SharedClient().call("NoSuchMethod")
+  const data = await response.json()
+  if (data.error) {
+    throw new Error(data.error)
+  }
+  return data
 }
 
 export const fetchSetting = async (): Promise<SettingResponse> => {
