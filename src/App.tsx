@@ -5,7 +5,6 @@ import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
 
 import { DashCommand } from "./components/DashCommand"
 import ErrorBoundary from "./components/ErrorBoundary"
-import GlobalLoading from "./components/loading/GlobalLoading"
 import Header, { RefreshToast } from "./components/Header"
 import { useBackground } from "./hooks/use-background"
 import { useTheme } from "./hooks/use-theme"
@@ -56,15 +55,13 @@ const MainApp: React.FC = () => {
     return <ErrorPage code={500} message={error.message} />
   }
 
-  // 数据加载中，显示全局加载动画
   if (!settingData) {
-    return <GlobalLoading variant="logo" text="正在连接服务器..." />
+    return null
   }
 
   if (settingData?.data?.config?.custom_code && !isCustomCodeInjected) {
-    return <GlobalLoading variant="logo" text="正在注入自定义代码..." />
+    return null
   }
-
 
   if (settingData?.data?.config?.language && !localStorage.getItem("language")) {
     i18n.changeLanguage(settingData?.data?.config?.language)
