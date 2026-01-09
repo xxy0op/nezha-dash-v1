@@ -19,7 +19,8 @@ export function ServiceTracker({ serverList }: { serverList: NezhaServer[] }) {
   })
 
   const processServiceData = (serviceData: ServiceData) => {
-    const days = serviceData.up.map((up, index) => {
+    // 为 map 回调添加类型注解
+    const days = serviceData.up.map((up: number, index: number) => {
       const totalChecks = up + serviceData.down[index]
       const dailyUptime = totalChecks > 0 ? (up / totalChecks) * 100 : 0
       return {
@@ -30,11 +31,14 @@ export function ServiceTracker({ serverList }: { serverList: NezhaServer[] }) {
       }
     })
 
-    const totalUp = serviceData.up.reduce((a, b) => a + b, 0)
-    const totalChecks = serviceData.up.reduce((a, b) => a + b, 0) + serviceData.down.reduce((a, b) => a + b, 0)
+    // 为 reduce 回调添加类型注解
+    const totalUp = serviceData.up.reduce((a: number, b: number) => a + b, 0)
+    const totalChecks = serviceData.up.reduce((a: number, b: number) => a + b, 0) + 
+                        serviceData.down.reduce((a: number, b: number) => a + b, 0)
     const uptime = (totalUp / totalChecks) * 100
 
-    const avgDelay = serviceData.delay.length > 0 ? serviceData.delay.reduce((a, b) => a + b, 0) / serviceData.delay.length : 0
+    const avgDelay = serviceData.delay.length > 0 ? 
+                     serviceData.delay.reduce((a: number, b: number) => a + b, 0) / serviceData.delay.length : 0
 
     return { days, uptime, avgDelay }
   }
