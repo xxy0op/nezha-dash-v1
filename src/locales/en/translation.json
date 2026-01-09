@@ -43,14 +43,6 @@
     "total": "total",
     "nextUpdate": "next update"
   },
-  "serviceTracker": {
-    "noService": "No service data",
-    "uptime": "Uptime",
-    "delay": "Delay",
-    "daysAgo": "days ago",
-    "today": "Today",
-    "loading": "Loading..."
-  },
   "serverDetail": {
     "status": "Status",
     "online": "Online",

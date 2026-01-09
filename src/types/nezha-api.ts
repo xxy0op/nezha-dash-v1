@@ -101,27 +101,6 @@ export interface NezhaMonitor {
   packet_loss?: number[]
 }
 
-export interface ServiceResponse {
-  success: boolean
-  data: {
-    services: {
-      [key: string]: ServiceData
-    }
-    cycle_transfer_stats: CycleTransferStats
-  }
-}
-
-export interface ServiceData {
-  service_name: string
-  current_up: number
-  current_down: number
-  total_up: number
-  total_down: number
-  delay: number[]
-  up: number[]
-  down: number[]
-}
-
 export interface CycleTransferStats {
   [key: string]: CycleTransferData
 }
